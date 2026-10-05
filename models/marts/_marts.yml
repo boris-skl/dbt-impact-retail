@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: mart_customer_value
+    description: "Bestellungen, Umsatz und Marge pro Kunde"
+    columns:
+      - name: customer_id
+        data_tests: [not_null, unique]
+  - name: mart_sales_by_region
+    description: "Umsatz und Marge pro Region/Bundesland"
+  - name: mart_category_performance
+    description: "Umsatz und Marge pro Monat und Produktkategorie"
+    columns:
+      - name: category_name
+        data_tests: [not_null]

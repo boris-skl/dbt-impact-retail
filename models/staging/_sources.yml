@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: demo_dwh
+    description: "Tutorial-DWH, identisch zu den Tabellen in Boris' Oracle-Instanz"
+    database: BORIS_DEMO_DWH
+    schema: DEMO_DWH
+    tables:
+      - name: ORDER_FACT
+      - name: ORDER_DETAIL
+      - name: LU_CUSTOMER
+      - name: LU_CUST_CITY
+      - name: LU_CUST_STATE
+      - name: LU_CUST_REGION
+      - name: LU_ITEM
+      - name: LU_SUBCATEG
+      - name: LU_CATEGORY

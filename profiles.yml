@@ -1,0 +1,16 @@
+# Zugangsdaten kommen aus Umgebungsvariablen - hier steht kein Passwort.
+# Vor dem Ausfuehren im Terminal setzen (siehe README.md):
+#   SNOWFLAKE_ACCOUNT, SNOWFLAKE_USER, SNOWFLAKE_PASSWORD, optional SNOWFLAKE_ROLE
+impact_retail:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      role: "{{ env_var('SNOWFLAKE_ROLE', '') }}"
+      warehouse: COMPUTE_WH
+      database: BORIS_DEMO_DWH
+      schema: DBT_IMPACT
+      threads: 4

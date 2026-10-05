@@ -1,0 +1,21 @@
+# Testprojekt fuer den dbt-Connector von Impact Intelligence.
+# Liest das Tutorial-DWH in BORIS_DEMO_DWH.DEMO_DWH (dieselben Tabellen wie
+# in Boris' Oracle-Instanz) und schreibt ausschliesslich in das eigene Schema
+# BORIS_DEMO_DWH.DBT_IMPACT (siehe profiles.yml).
+name: impact_retail
+version: "1.0.0"
+config-version: 2
+profile: impact_retail
+
+model-paths: ["models"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  impact_retail:
+    staging:
+      +materialized: view
+    intermediate:
+      +materialized: view
+    marts:
+      +materialized: table
