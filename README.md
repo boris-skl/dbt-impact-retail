@@ -1,8 +1,13 @@
 # impact_retail - dbt-Testprojekt fuer Impact Intelligence
 
-Liest das Tutorial-DWH in `BORIS_DEMO_DWH.DEMO_DWH` (dieselben Tabellen wie in
-der Oracle-Instanz) und baut daraus 9 Staging-Views, 2 Intermediate-Views und
+Realistischer ELT-Fluss (seit 08.10.2026): **Fivetran** repliziert das
+Tutorial-DWH `BORIS_DEMO_DWH.DEMO_DWH` (Stand-in fuer ein Betriebssystem) in die
+Landing-Zone `FIVETRAN_DB.FIVETRAN_STAGE_DEMO_DWH`; **dbt** liest nur von dort
+(Source `raw_retail`, Freshness ueber `_FIVETRAN_SYNCED`, geloeschte Saetze ueber
+`_FIVETRAN_DELETED` gefiltert) und baut 9 Staging-Views, 2 Intermediate-Views und
 3 Mart-Tabellen im Schema `BORIS_DEMO_DWH.DBT_IMPACT`.
+
+Voraussetzung: die dbt-Rolle darf `FIVETRAN_DB.FIVETRAN_STAGE_DEMO_DWH` lesen.
 
 ## Ausfuehren
 
@@ -13,6 +18,7 @@ export SNOWFLAKE_ACCOUNT=...   # Account-Kennung wie im Snowflake-Connector
 export SNOWFLAKE_USER=...
 export SNOWFLAKE_PASSWORD=...  # nur in der eigenen Shell setzen
 .venv/bin/dbt debug            # Verbindung pruefen
+.venv/bin/dbt source freshness  # wann hat Fivetran zuletzt geliefert?
 .venv/bin/dbt build            # Modelle bauen + Tests
 .venv/bin/dbt docs generate    # erzeugt target/catalog.json (Spalten)
 ```

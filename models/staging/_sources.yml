@@ -1,10 +1,17 @@
 version: 2
 
+# Realistischer ELT-Fluss (Boris, 08.10.2026): Fivetran repliziert das
+# "Betriebssystem" (Stand-in: BORIS_DEMO_DWH.DEMO_DWH) in die Landing-Zone
+# FIVETRAN_DB.FIVETRAN_STAGE_DEMO_DWH; dbt liest nur noch von dort.
 sources:
-  - name: demo_dwh
-    description: "Tutorial-DWH, identisch zu den Tabellen in Boris' Oracle-Instanz"
-    database: BORIS_DEMO_DWH
-    schema: DEMO_DWH
+  - name: raw_retail
+    description: "Von Fivetran repliziert aus BORIS_DEMO_DWH.DEMO_DWH (Connection fivetran_stage)"
+    database: FIVETRAN_DB
+    schema: FIVETRAN_STAGE_DEMO_DWH
+    loaded_at_field: _FIVETRAN_SYNCED
+    freshness:
+      warn_after: {count: 24, period: hour}
+      error_after: {count: 72, period: hour}
     tables:
       - name: ORDER_FACT
       - name: ORDER_DETAIL

@@ -9,4 +9,5 @@ select
     income_id,
     first_order,
     last_order
-from {{ source('demo_dwh', 'LU_CUSTOMER') }}
+from {{ source('raw_retail', 'LU_CUSTOMER') }}
+where not coalesce(_fivetran_deleted, false)

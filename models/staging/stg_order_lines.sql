@@ -9,4 +9,5 @@ select
     unit_cost,
     discount,
     promotion_id
-from {{ source('demo_dwh', 'ORDER_DETAIL') }}
+from {{ source('raw_retail', 'ORDER_DETAIL') }}
+where not coalesce(_fivetran_deleted, false)
